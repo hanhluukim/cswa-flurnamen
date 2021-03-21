@@ -5,6 +5,9 @@ const authHeader={'Authorization': `Basic ${token}`}
 const API_URL='https://collections.thulb.uni-jena.de/api/v1'
 
 
+/*
+Aus der Daten werden nur folgende Funktionen eines Ergebnises gespeichert.
+*/
 const getResultsList = (data)=>{
   const foundObjects=[]
   for (var i = 0; i < data.length; i++)
@@ -26,25 +29,36 @@ const getResultsList = (data)=>{
 };
 
 
+/*
+Funktion zum Aufrufen der Daten mit dem gegebenen Title.
+Return bereits in JSON
+Ergebnisse für gesuchten Title werden an Search Komponent gesendet
+*/
 const searchInfoQuery  = (title) => {
       var req = API_URL+ '/search?wt=json&q=+cbuUnitTypes.actual:(33.0 33.1) AND objectType:"cbu" AND title:'+title;
       return axios.get(req, {headers:authHeader}).then((response)=>{
         
-        const data = response.data.response.docs; //docs is a list
-        const resp_in_list= getResultsList(data);
-
-        return resp_in_list;
+          const data = response.data.response.docs; //docs is a list
+          const resp_in_list= getResultsList(data);
+          return resp_in_list;
       });      
 };
 
-//Gemarkung und child-Flurkarten
+/*
+- Eine Gemarkung hat eine Sammlung von untergeordneten Flurnamen als children
+- Es gibt eine Liste der children der Gemarkung
+- Für jedes Element (flurname) wird ein GET-Request mit ID gesendet
+- Nur einige Merkmale wurden gespeichert
+*/
 const getChilden=(childList)=>{
   var childInfos=[]
   for(var i in childList.slice(0,10)){
     console.log(childList[i]);
     var childID = childList[i].$["xlink:title"];
     console.log(childID);
-
+    /*
+    Daten eines Flurnamen aufrufen mit der gegebenen childID
+    */
     var childReq = API_URL+'/objects/'+childID;
     var childRes= axios.get(childReq, {headers:authHeader}).then((response)=>{
       var xml2js = require('react-native-xml2js');

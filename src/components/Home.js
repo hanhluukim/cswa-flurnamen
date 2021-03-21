@@ -1,6 +1,8 @@
 import React, { useState, useEffect, Component } from "react";
 
 import { MDBCard, MDBCardTitle, MDBBtn, MDBRow, MDBCol, MDBIcon, MDBContainer } from 'mdbreact';
+import {Link} from 'react-router-dom';
+
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
@@ -38,12 +40,17 @@ const Home = () => {
                           <h5 className='green-text'>
                             <MDBIcon icon='database' /> Datenbank
                           </h5>
-                          <a className="card-link" href="/suche">
+                          
                             <MDBBtn color='green'>
-                              <MDBIcon icon='search' /> 
-                              Datensuche
+                              <MDBIcon icon='search' />
+                              <Link
+                                    style={{ color: '#FFF' }}
+                                    id="link-to-search"
+                                    name="link-to-search" 
+                                    to="/suche">
+                                    Datensuche</Link>
                             </MDBBtn>
-                          </a>
+                         
                         </div>
                       </div>
                     </MDBCard>
@@ -76,12 +83,18 @@ const Home = () => {
                 sowohl für Laien als auch Wissenschaftler 
                 verschiedenster Bereiche.
               </p>
-              <a className="card-link" href="/projekt">
+              
                 <MDBBtn color='green'>
                   <MDBIcon icon='clone left' id="btn-read-project" /> 
-                  Mehr erfahren
+                  <Link
+                        style={{ color: '#FFF' }}
+                        id="link-to-project"
+                        name="link-to-project" 
+                        to="/projekt">
+                        Mehr erfahren</Link>
+                          
                 </MDBBtn>
-              </a>
+              
             </div>
           </div>
         </MDBCard>
@@ -94,12 +107,18 @@ const Home = () => {
                             <MDBIcon icon='chart-pie' /> Flurnamen
                           </h5>
                           
-                          <a className="card-link" href="/flurnamen">
+                          
                               <MDBBtn color='green'>
                                 <MDBIcon icon='clone left' /> 
-                                Mehr erfahren
+                                <Link
+                                    style={{ color: '#FFF' }}
+                                    id="link-to-flurnamen"
+                                    name="link-to-flurnamen" 
+                                    to="/flurnamen">
+                                    Mehr erfahren</Link>
+                            
                               </MDBBtn>
-                            </a>
+                          
                         </div>
                       </div>
                   </MDBCard>

@@ -9,7 +9,10 @@ describe('Story 1: Homepage and others', () => {
     })
     
     it('project reading', ()=>{
-        cy.get('[id=btn-read-project]').click()
+        //cy.get('[id=btn-read-project]').click()
+
+        cy.get('#link-to-project').click()
+
         cy.url().should('include', '/projekt') // => true
         cy.wait(1)
     })
@@ -23,5 +26,16 @@ describe('Story 1: Homepage and others', () => {
       cy.contains('Partner').click() //open
       cy.wait(4)
       cy.contains('Partner').click() //closed
-  })
+    })
+    it('to datensuche from home', ()=>{
+      cy.get('.navigation').contains('Home').click()
+      cy.get('#link-to-search').click()
+      cy.url().should('include', '/suche') // => true
+    })
+    it('to flurnamen', ()=>{
+      cy.get('.navigation').contains('Flurnamen').click()
+     
+      cy.url().should('include', '/flurnamen') // => true
+    })
+
   })
