@@ -89,8 +89,13 @@ const getChilden=(childList)=>{
         return info
       });
       console.log(childRes);
-      childInfos.push(childRes);
+      childRes.then((res)=>{
+        console.log(res)
+        childInfos.push(res);
+      })
+      
   }
+  console.log("GET TESTEN");
   console.log(childInfos)
   return childInfos
 }
@@ -109,10 +114,14 @@ const contentDetailGemarkung=(dataJS)=>{
                     dataJS.metadata[0]["def.coordinates"][0].coordinates[3]._
                   ],
       'gnd':dataJS.metadata[0]["def.place"][0].place[0]._,
-      'children': getChilden(dataJS.structure[0].children[0].child),
+      'children': [],
   }
-  console.log(content);
-  return content;
+  var childINfos = getChilden(dataJS.structure[0].children[0].child);
+  content.children= childINfos;
+  console.log("all flurnames");
+  console.log(content.children);
+  //console.log(content);
+  return content.children;
 };
 
 /*
@@ -123,6 +132,7 @@ const contentDetailFlurname=(dataJS)=>{
 
   console.log(dataJS);
   console.log("SERVER RESPONSE");
+  
   const details=[];
   const content={
     title:' ',
@@ -189,14 +199,10 @@ const getInfoDetails = (objectID) => {
         var keys = Object.keys(dataJS.structure['0']);
 
         if(keys.includes('children')){
-            //var contentG = contentDetailGemarkung(dataJS);
-            return [{
-              title:' ',
-              area:' ',
-              evidence:' ',
-              note:' ',
-              parent:' ',
-            }]
+            var contentG = contentDetailGemarkung(dataJS);
+            console.log("RUECKWERTE");
+            console.log(contentG);
+            return contentG
         }
         else{
           //Flurname

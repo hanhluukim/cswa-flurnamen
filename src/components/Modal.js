@@ -36,7 +36,8 @@ function Display(objectID) {
     }
     console.log("state details");
     console.log(details);
-
+    console.log("test show modal");
+    console.log(show);
     return (
       <>
         
