@@ -33,4 +33,28 @@ describe('Story 4: Searchpage', () => {
             
           })
     })
+    it('open details modal',()=>{
+        let rows = cy.get('#table-results')//.
+        let fr = rows.find('tr').eq(1)
+        let c = fr.find('td').eq(4)
+
+        cy.get('#id-number-results').then(($span) => {
+            
+            const nr = parseFloat($span.text())
+
+            //cy.get('#table-results').find('tr').should('have.length', nr+1)
+            if(nr){
+                cy.get('#table-results').find('tr').eq(1).find('td').eq(4).find('button').click()
+                //get('button[class="btn btn-success"]').click()
+                //c.get('button[class="btn btn-success"]').click()
+                cy.wait(5000)
+                //cy.get('#btn-details-close').click()
+            }
+            
+          })
+
+    })
+    it('close details modal',()=>{
+        cy.get('#btn-details-close').click()
+    })
 })

@@ -225,7 +225,7 @@ const ResultsList=(props)=>{
     <td>{props['place']}</td>
     <td>{props['facetObjectType']}</td>
     <td>{len}</td>
-    <td><Display value={objectID}/></td>
+    <td name="details"><Display name="modalOpen" value={objectID}/></td>
   </tr> 
   );
 };

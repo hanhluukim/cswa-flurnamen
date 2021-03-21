@@ -56,7 +56,7 @@ function Display(objectID) {
     return (
       <>
         
-        <MDBBtn class="btn btn-success" onClick={()=>setShow(true)}>
+        <MDBBtn className="btn-anzeige" class="btn btn-success" onClick={()=>setShow(true)}>
           Anzeige
         </MDBBtn>
 
@@ -86,7 +86,7 @@ function Display(objectID) {
               </MDBContainer>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="dark" class="btn btn-dark" onClick={handleClose}>
+            <Button id="btn-details-close" variant="dark" class="btn btn-dark" onClick={handleClose}>
               Schließen
             </Button>
         </Modal.Footer>
