@@ -26,17 +26,24 @@ import Gallery from "./components/Gallery";
 import Literatur from "./components/Literatur";
 import DBGrundlagen from "./components/Datenbank";
 
-//========================
+/*=================================================================================
+Navigation:
+- wenn localStorage kein Nutzer vorhanden ist:
+  + Anmeldung und Registierierung angezeigt
+- wenn user gerade in der localStorage befindet:
+  + wird die Navigation mit "Datenerfassung" erweitert.
+  + Abmeldung wird angezeigt
+*/
 
 const App = () => {
-  
+  //status auth der Nutzer aus dem State ()
   const { user: currentUser } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     history.listen((location) => {
-      dispatch(clearMessage()); // clear message when changing location
+      dispatch(clearMessage()); // nach einer durchgeführten Aktion, die zu nächstem Zustand führt, wird die "fake" message aus dem Response gelöscht
     });
   }, [dispatch]);
 
@@ -45,8 +52,9 @@ const App = () => {
     }
   }, [currentUser]);
 
+  
   const logOut = () => {
-    dispatch(logout());
+    dispatch(logout()); //wenn logOut() dann wird eine Action logout durchgeführt. Dadurch wird Nutzer aus lokalStorage gelöscht
   };
 
 
@@ -75,7 +83,7 @@ const App = () => {
             <MDBNavItem>
               <MDBNavLink to="/literatur">Literatur</MDBNavLink>
             </MDBNavItem>
-
+            {/*Dropdown Menu-Item*/}
             <MDBNavItem>
               <MDBDropdown>
                 <MDBDropdownToggle nav caret>
@@ -93,7 +101,7 @@ const App = () => {
             </MDBNavItem>
 
             
-
+            {/**Wenn currentUser in der localStorage ist*/}
             {currentUser && (
               <MDBNavItem>
                 <MDBNavLink to="/erfassung">Datenerfassung</MDBNavLink>
@@ -102,7 +110,6 @@ const App = () => {
 
           </MDBNavbarNav>
           
-
 
               {currentUser ? (
 

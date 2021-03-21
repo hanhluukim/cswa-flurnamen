@@ -17,7 +17,7 @@ function Display(objectID) {
     var resp="";
     var title="tessssssssssss";
 
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false); //first state fur variable show
     const [loading, setLoading] = useState(false);
     const [details, setDetails] = useState("");
 
@@ -59,7 +59,7 @@ function Display(objectID) {
         <MDBBtn className="btn-anzeige" class="btn btn-success" onClick={()=>setShow(true)}>
           Anzeige
         </MDBBtn>
-
+        {/*POP UP Fenster wird geöffet*/}
         <Modal
           size="lg"
           show={show}

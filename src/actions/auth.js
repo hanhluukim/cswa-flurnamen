@@ -9,8 +9,18 @@ import {
 
 import AuthService from "../services/auth.service";
 
+/*
+-Hier wird ein Fake Authorziation erstellt.
+-für jede Aktion wird ein Service (fake Backend) durchgeführt
+-kiene echte Response hier. Response wird selbst erstellt.
+*/
+
 export const register = (username, email, password) => (dispatch) => {
-  var response = AuthService.register(username, email, password);
+/*
+die eingabe von Nutzer wird weiter an Service eingegeben
+Bedingungen der Registrierung, Anmeldung wurden in der service definiert. Dann wird eine Response entsprechend erstellt.
+*/
+  var response = AuthService.register(username, email, password); //AuthService wird Registierung checken mit den gegebenen Variablen
   console.log(response);
   if (response.status==200){
     dispatch({
@@ -38,7 +48,7 @@ export const register = (username, email, password) => (dispatch) => {
 
 export const login = (username, password) => (dispatch) => {
 
-  var resp = AuthService.login(username, password);
+  var resp = AuthService.login(username, password); //LOGIN SERVICE wird Nutzer ins lokalStorage hinzugfügen wenn message "success" ist
 
   if (resp.data.message=="success"){
     console.log("Action");
@@ -67,7 +77,7 @@ export const login = (username, password) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  AuthService.logout();
+  AuthService.logout(); //im Autho service wird Nutzer aus dem localStorage entfernt
 
   dispatch({
     type: LOGOUT,

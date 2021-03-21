@@ -10,7 +10,7 @@ import { register } from "../actions/auth";
 
 
 
-
+//DefinierenFunktion um Feedbacks für die Eingaben zu zeigen
 const required = (value) => {
   if (!value) {
     return (
@@ -51,19 +51,21 @@ const vpassword = (value) => {
     );
   }
 };
-
+//
 const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
 
+  //definieren State für username, email, password. Die Eingaben jedes States werden dann dann durch oben definierten Funktionen z.B. ("validations" = {required, vpasswort"}
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [successful, setSuccessful] = useState(false);
+  const [successful, setSuccessful] = useState(false); //define State of Registrierung
 
   const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
-
+  
+  //setSate 
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
@@ -87,9 +89,9 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(register(username, email, password))
+      dispatch(register(username, email, password)) //Eingaben wird an AuthorService weiter geleitet
         .then(() => {
-          setSuccessful(true);
+          setSuccessful(true); //change Registrierungstatus zu True
         })
         .catch(() => {
           setSuccessful(false);

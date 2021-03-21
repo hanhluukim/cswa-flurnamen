@@ -88,7 +88,6 @@ class Search extends Component {
             }
             foundObjects.push(new_data)
         }
-        
        
         this.setState({
             results:foundObjects
@@ -102,18 +101,21 @@ class Search extends Component {
   }
 
 
-
-//metadata[0]["def.title"][0].title[0]["_"]  
   handleInputChange = () => {
     
       this.setState({
       query: this.search.value,
       //based on query will rall results be filtered
+      //suggestion durch der Title die Buchstaben aus dem Eingabe erhält
       filterBestand:this.state.results.filter((bestand)=>bestand['title'].toLowerCase().includes(this.state.query.toLowerCase()))
       })
 
   }
 
+  /*
+  Daten für eingebene Anfrage aufrufen
+  Response wird in dem State resultForQuery gespeichert
+  */
   getResultsForQuery =(event) =>{
     const title = this.state.query;
     console.log(title);

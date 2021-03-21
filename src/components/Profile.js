@@ -2,9 +2,14 @@ import React from "react";
 import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
+//Die Seite wurde nur genutzt, um Einloggen zu checken
 const Profile = () => {
+
   const { user: currentUser } = useSelector((state) => state.auth);
   console.log(currentUser);
+
+  //wenn currentUser gelöscht wird, redirect to Anmeldung
+  //Information von Nutzern currentUser id, email, role wurden aus dem lokalStrage gespeichert.
 
   if (!currentUser) {
     return <Redirect to="/anmeldung" />;
@@ -33,7 +38,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-/*
-später wird für Hinzufügung Seite erscheinen
-*/

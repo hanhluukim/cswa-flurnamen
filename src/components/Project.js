@@ -4,6 +4,11 @@ import Accordion from "./Accordion";
 import Table from 'react-bootstrap/Table'
 
 class Project extends React.Component {
+  /*
+  state zum speichern, welche Index ausgewählt wurde.
+  Index=0 (erste Accordion) immer geöffnet
+  */
+
   constructor(props) {
     super(props);
     this.state = {

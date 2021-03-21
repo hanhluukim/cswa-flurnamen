@@ -2,13 +2,14 @@ import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from 'react-router-dom';
 
+//Verwendung von react-validation
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 
 import { login } from "../actions/auth";
-
+//Funktion zur Kontrolle der Nutzereingaben beim Logging
 const required = (value) => {
   if (!value) {
     return (
@@ -32,6 +33,7 @@ const Login = (props) => {
 
   const dispatch = useDispatch();
 
+  //UPDATE Value STATE for Eingaben-Arribute
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
@@ -41,7 +43,7 @@ const Login = (props) => {
     const password = e.target.value;
     setPassword(password);
   };
-
+  //LOGIN
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -50,10 +52,10 @@ const Login = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(login(username, password))
+      dispatch(login(username, password)) //update State von username, password. Dispatch zum Login Auth.Service. username und passwort wurden beim Auth.Service überprüfen
         .then(() => {
           props.history.push("/profile");
-          //window.location.reload();
+          
         })
         .catch(() => {
           setLoading(false);
@@ -66,7 +68,7 @@ const Login = (props) => {
   if (isLoggedIn) {
     return <Redirect to="/profile" />;
   }
-
+//FRONTEND - LOGIN
   return (
     <div className="col-md-12">
       <div className="card card-container">
