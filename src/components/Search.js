@@ -11,7 +11,24 @@ import Display from './Modal';
 
 var foundObjects=[]
 
-
+//aufgrund Server
+var fakeResp=[
+  {
+    id:"",
+    title:"Berka",
+    link:""
+  },
+  {
+    id:"",
+    title:"Berka/Weimar",
+    link:""
+  },
+  {
+    id:"",
+    title:"Bäckereiberg",
+    link:""
+  }
+]
 
 var requestGetIDs = {
     method: 'get',
@@ -75,6 +92,7 @@ class Search extends Component {
        
         this.setState({
             results:foundObjects
+            //results: fakeResp
         });
       })
       .catch((error)=>{
@@ -132,10 +150,10 @@ class Search extends Component {
     }
     else{
         if(isFoundForQuery!==0){
-        showResults=<h3 class="text-success">{isFoundForQuery} Ergebnisse gefunden</h3>
+        showResults=<h3 id="id-number-results" class="text-success"><span>{isFoundForQuery}</span> Ergebnis gefunden</h3>
       }
       else{
-        showResults=<h3 style={{textAlign:'justify'}}class="text-danger">Keine Ergebnisse gefunden!</h3>
+        showResults=<h3 id="id-number-results" style={{textAlign:'justify'}}class="text-danger"><span>0</span> Ergebnis gefunden!</h3>
       }
     }
 
@@ -151,24 +169,27 @@ class Search extends Component {
                 </span>
                 </div>
                   
-                    <input className="form-control my-0 py-1" 
+                    <input name="input-query"
+                        className="form-control my-0 py-1" 
                         ref={input => this.search = input}
                         onChange={this.handleInputChange}
                         //onKeyPress={event=>event.key=="Enter" &&this.getResultsForQuery}
                         type="text" 
                         placeholder="Flurname eingeben und Button drücken" 
                         aria-label="Search" />
-                    <MDBBtn color="green" onClick={this.getResultsForQuery}>Suchen</MDBBtn>
+                    <MDBBtn id="id-btn-search" color="green" onClick={this.getResultsForQuery}>Suchen</MDBBtn>
                  
             </div>
         </MDBCol>
         
         {/*{suggestResults}*/}
+        <div id="list-suggests">
         {this.state.filterBestand.slice(0,5).map((item, index) => <SuggestList key={index} {...item} />)}
+        </div>
         
         {showResults}
         
-        <MDBTable className="table-result">
+        <MDBTable id="table-results" className="table-result">
           <MDBTableHead>
             <tr>
               <th>Title</th>
@@ -210,7 +231,7 @@ const ResultsList=(props)=>{
 };
 
 const SuggestList=(props)=>(
-    <p>
+    <p class="p-suggest">
     {props['title']}
     </p>
 );

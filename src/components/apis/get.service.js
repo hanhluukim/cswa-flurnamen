@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//Infornation von APIs
 const token="cmVzdGFwaS1yZWFkOmRlMjgxMjMyOGIzYTZmODc1NDIyYjM4NzZlMDJiZTM3"
 const authHeader={'Authorization': `Basic ${token}`}
 const API_URL='https://collections.thulb.uni-jena.de/api/v1'
@@ -53,41 +54,44 @@ const searchInfoQuery  = (title) => {
 const getChilden=(childList)=>{
   var childInfos=[]
   for(var i in childList.slice(0,10)){
-    console.log(childList[i]);
-    var childID = childList[i].$["xlink:title"];
-    console.log(childID);
-    /*
-    Daten eines Flurnamen aufrufen mit der gegebenen childID
-    */
-    var childReq = API_URL+'/objects/'+childID;
-    var childRes= axios.get(childReq, {headers:authHeader}).then((response)=>{
-      var xml2js = require('react-native-xml2js');
-      var parser = new xml2js.Parser();
-      var dataJS='';
-      parser.parseString(response.data, function (err, detailJSON) {
-          dataJS = detailJSON.mycoreobject;
-      });
-      console.log("CHILDREN INFORMATION");
-      console.log(dataJS);
-      var info={
-        'id':childID,
-        'area':dataJS.metadata[0]["def.area"][0].area[0]._,
-        'evidence':dataJS.metadata[0]["def.evidence"][0].evidence[0]._,
-        //'note':dataJS.metadata[0]["def.note"][0].note[0]._,
-        'place':dataJS.metadata[0]["def.place"][0].place[0]._,
-        'typeTitle':dataJS.metadata[0]["def.title"][0].title[0].$.type,
-        'title':dataJS.metadata[0]["def.title"][0].title[0]._,
+      var childID = childList[i].$["xlink:title"];
+      console.log(childID);
+      /*
+      Daten eines Flurnamen aufrufen mit der gegebenen childID
+      */
+      var childReq = API_URL+'/objects/'+childID;
+      var childRes= axios.get(childReq, {headers:authHeader}).then((response)=>{
+        var xml2js = require('react-native-xml2js');
+        var parser = new xml2js.Parser();
+        var dataJS='';
+        parser.parseString(response.data, function (err, detailJSON) {
+            dataJS = detailJSON.mycoreobject;
+        });
+        console.log("CHILDREN INFORMATION");
+        console.log(dataJS);
+        var info={
+          'id':childID,
+          'area':dataJS.metadata[0]["def.area"][0].area[0]._,
+          'evidence':dataJS.metadata[0]["def.evidence"][0].evidence[0]._,
+          //'note':dataJS.metadata[0]["def.note"][0].note[0]._,
+          'place':dataJS.metadata[0]["def.place"][0].place[0]._,
+          'typeTitle':dataJS.metadata[0]["def.title"][0].title[0].$.type,
+          'title':dataJS.metadata[0]["def.title"][0].title[0]._,
 
-      }
-      return info
-    });
-    console.log(childRes);
-    childInfos.push(childRes);
+        }
+        return info
+      });
+      console.log(childRes);
+      childInfos.push(childRes);
   }
   console.log(childInfos)
   return childInfos
 }
 
+/*
+response von einer Gemarkung beinhaltet mehrere children
+information von children wird mit der funktion getChildren gefunden und gespeichert
+*/
 const contentDetailGemarkung=(dataJS)=>{
   var content={
       'title':dataJS.metadata[0]["def.title"][0].title[0]["_"],
@@ -104,6 +108,10 @@ const contentDetailGemarkung=(dataJS)=>{
   return content;
 };
 
+/*
+Informationen eines Flurnamen wird gefiltert und gespeichert
+
+*/
 const contentDetailFlurname=(dataJS)=>{
   const content="";
   return content;
@@ -126,13 +134,13 @@ const getInfoDetails = (objectID) => {
         var keys = Object.keys(dataJS.structure['0']);
 
         if(keys.includes('children')){
-            var contentG = contentDetailGemarkung(dataJS);
-            return 'G'
+            //var contentG = contentDetailGemarkung(dataJS);
+            return 'Gemarkung'
         }
         else{
           //Flurname
-            contentDetailFlurname(dataJS);
-            var contentF = "F" //contentDetailFlurname(dataJS);
+            
+            var contentF = "Flurname" //contentDetailFlurname(dataJS);
             return contentF
         }
         //console.log(dataJS);
