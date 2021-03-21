@@ -78,7 +78,7 @@ const Home = () => {
               </p>
               <a className="card-link" href="/projekt">
                 <MDBBtn color='green'>
-                  <MDBIcon icon='clone left' /> 
+                  <MDBIcon icon='clone left' id="btn-read-project" /> 
                   Mehr erfahren
                 </MDBBtn>
               </a>

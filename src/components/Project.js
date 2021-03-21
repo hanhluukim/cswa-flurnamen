@@ -15,6 +15,7 @@ class Project extends React.Component {
     return (
       <div className="flurnamen-accordion">
         <Accordion
+          id="accordion-project"
           className="accordion"
           selectedIndex={this.state.selectedIndex}
           onChange={(index, expanded, selectedIndex) => console.log(`#${index} ${expanded ? 'expanded' : 'collapsed'} (selectedIndex: ${selectedIndex})`)}
@@ -118,7 +119,7 @@ class Project extends React.Component {
                     </tbody>
                 </Table>
             </div>
-          <div data-header="Kontakt" className="accordion-item">
+          <div data-header="Kontakt" className="accordion-item" id="acc-read-contact">
             <p>
             Dr. Barbara Aehnlich <br></br>
             Friedrich-Schiller-Universität Jena <br></br>

@@ -7,13 +7,6 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 
-
-
-//COMPONENTS
-import {
-  MDBBtn
-} from "mdbreact";
-
 import { login } from "../actions/auth";
 
 const required = (value) => {
@@ -112,11 +105,11 @@ const Login = (props) => {
           
 
           <div className="form-group">
-            <button style={{backgroundColor:'green'}}className="btn btn-success btn-block" disabled={loading}>
+            <button id="btn-login-submit" style={{backgroundColor:'green'}}className="btn btn-success btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
-              <span>Login</span>
+              Anmelden
             </button>
           </div>
           

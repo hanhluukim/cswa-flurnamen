@@ -60,7 +60,7 @@ const App = () => {
   //========================
   return (
     <Router history={history}>
-      <div>
+      <div class="navigation">
       <MDBNavbar color="green" dark expand="md">
         <MDBNavbarToggler onClick={() => setMenuState(toggleCollapse)} />
         <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
@@ -111,7 +111,7 @@ const App = () => {
                         <MDBNavLink to="/profile">{currentUser.username}</MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
-                        <MDBNavLink to="/anmeldung" onClick={logOut}>Abmeldung</MDBNavLink>
+                        <MDBNavLink id="abmeldung-id" to="/anmeldung" onClick={logOut}>Abmeldung</MDBNavLink>
                     </MDBNavItem>
                 </MDBNavbarNav>        
               ) : (
@@ -121,7 +121,7 @@ const App = () => {
                       <MDBNavLink to="/anmeldung">Anmeldung</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                      <MDBNavLink to="/registerierung">Registerierung</MDBNavLink>
+                      <MDBNavLink to="/registerierung">Registrierung</MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>
               )}

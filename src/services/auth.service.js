@@ -9,7 +9,10 @@ const register = (username, email, password) => {
       var test_response={
         // `data` is the response that was provided by the server
         data: 
-          {auth: {id:2, username:username, email:email}, message: 'erfolgreich registeriert'}
+          {auth: 
+            {id:2, username:username, email:email}, 
+            message: 'erfolgreich registeriert'
+          }
         ,
       
         // `status` is the HTTP status code from the server response
@@ -33,7 +36,7 @@ const register = (username, email, password) => {
       
       console.log("auth.service:");
       console.log(test_response);
-
+      
       return test_response;
     }
     else{
@@ -101,7 +104,7 @@ const login = (username, password) => {
         auth:{
           user:{}
         }, 
-          message:"Account existiert nicht"}
+          message:"Nutzername oder Password nicht korrekt"}
       }
     return error
   }

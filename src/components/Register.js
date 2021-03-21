@@ -8,9 +8,7 @@ import { isEmail } from "validator";
 
 import { register } from "../actions/auth";
 
-import {
-  MDBBtn
-} from "mdbreact";
+
 
 
 const required = (value) => {
@@ -149,7 +147,7 @@ const Register = () => {
 
               
               <div className="form-group">
-                <button className="btn btn-success btn-block">Registerierung</button>
+                <button id="btn-submit" className="btn btn-success btn-block">Registerierung</button>
               </div>
             </div>
           )}
