@@ -76,6 +76,7 @@ const getChilden=(childList)=>{
         });
         console.log("CHILDREN INFORMATION");
         console.log(dataJS);
+        /*
         var info={
           'id':childID,
           'area':dataJS.metadata[0]["def.area"][0].area[0]._,
@@ -86,7 +87,51 @@ const getChilden=(childList)=>{
           'title':dataJS.metadata[0]["def.title"][0].title[0]._,
 
         }
-        return info
+        */
+        const content={
+          title:' ',
+          area:' ',
+          evidence:' ',
+          note:' ',
+          parent:' ',
+        };
+        
+        try{
+          //metadata[0]["def.title"][0].title[0]._
+          var title = dataJS.metadata[0]["def.title"][0].title[0]._;
+          content.area=title;
+        }catch{
+      
+        }
+      
+        try{
+          var area = dataJS.metadata[0]["def.area"][0].area[0]._;
+          content.area=area;
+        }catch{
+      
+        }
+      
+        try{
+          var evidence = dataJS.metadata[0]["def.evidence"][0].evidence[0]._;
+          content.evidence=evidence;
+        }catch{
+      
+        }
+      
+        try{
+          var note = dataJS.metadata[0]["def.note"][0].note[0]._;
+          content.note=note;
+        }catch{
+      
+        }
+      
+        try{
+          var parent = dataJS.structure[0].parents[0].parent[0].$["xlink:href"];
+          content.parent=parent;
+        }catch{
+      
+        }
+        return content
       });
       console.log(childRes);
       childRes.then((res)=>{
