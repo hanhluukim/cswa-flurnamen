@@ -215,6 +215,8 @@ const ResultsList=(props)=>{
   console.log(props);
   console.log(props.place);
   const objectID=props.id;
+  const title = props.title;
+
   let childs = props.link;
   let len = 0
   if (childs!=undefined){

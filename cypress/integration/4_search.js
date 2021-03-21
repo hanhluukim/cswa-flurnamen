@@ -18,7 +18,7 @@ describe('Story 4: Searchpage', () => {
         cy.get('input[name="input-query"]').clear()
     })
     it('Results for entire query',()=>{
-        let query= "Mehrstedt"
+        let query= "Berka"
         cy.get('input[name="input-query"]').type(query)
         cy.get('#id-btn-search').click()
         cy.get('#id-number-results', { timeout: 100000000000}).should('be.visible')
@@ -44,7 +44,7 @@ describe('Story 4: Searchpage', () => {
 
             //cy.get('#table-results').find('tr').should('have.length', nr+1)
             if(nr){
-                cy.get('#table-results').find('tr').eq(1).find('td').eq(4).find('button').click()
+                cy.get('#table-results').find('tr').eq(nr).find('td').eq(4).find('button').click()
                 //get('button[class="btn btn-success"]').click()
                 //c.get('button[class="btn btn-success"]').click()
                 cy.wait(5000)

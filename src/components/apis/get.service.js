@@ -6,6 +6,13 @@ const authHeader={'Authorization': `Basic ${token}`}
 const API_URL='https://collections.thulb.uni-jena.de/api/v1'
 
 
+const keys=[
+  'title',
+  'area',
+  'evidence',
+  'note',
+  'parent'
+]
 /*
 Aus der Daten werden nur folgende Funktionen eines Ergebnises gespeichert.
 */
@@ -113,8 +120,55 @@ Informationen eines Flurnamen wird gefiltert und gespeichert
 
 */
 const contentDetailFlurname=(dataJS)=>{
-  const content="";
-  return content;
+
+  console.log(dataJS);
+  console.log("SERVER RESPONSE");
+  const details=[];
+  const content={
+    title:' ',
+    area:' ',
+    evidence:' ',
+    note:' ',
+    parent:' ',
+  };
+  
+  try{
+    //metadata[0]["def.title"][0].title[0]._
+    var title = dataJS.metadata[0]["def.title"][0].title[0]._;
+    content.area=title;
+  }catch{
+
+  }
+
+  try{
+    var area = dataJS.metadata[0]["def.area"][0].area[0]._;
+    content.area=area;
+  }catch{
+
+  }
+
+  try{
+    var evidence = dataJS.metadata[0]["def.evidence"][0].evidence[0]._;
+    content.evidence=evidence;
+  }catch{
+
+  }
+
+  try{
+    var note = dataJS.metadata[0]["def.note"][0].note[0]._;
+    content.note=note;
+  }catch{
+
+  }
+
+  try{
+    var parent = dataJS.structure[0].parents[0].parent[0].$["xlink:href"];
+    content.parent=parent;
+  }catch{
+
+  }
+  details.push(content);
+  return details;
 };
 
 const getInfoDetails = (objectID) => {
@@ -131,16 +185,23 @@ const getInfoDetails = (objectID) => {
         console.log(dataJS);
         console.log(Object.keys(dataJS.structure));
         console.log(dataJS.structure['0']);
+        
         var keys = Object.keys(dataJS.structure['0']);
 
         if(keys.includes('children')){
             //var contentG = contentDetailGemarkung(dataJS);
-            return 'Gemarkung'
+            return [{
+              title:' ',
+              area:' ',
+              evidence:' ',
+              note:' ',
+              parent:' ',
+            }]
         }
         else{
           //Flurname
             
-            var contentF = "Flurname" //contentDetailFlurname(dataJS);
+            var contentF = contentDetailFlurname(dataJS);
             return contentF
         }
         //console.log(dataJS);
