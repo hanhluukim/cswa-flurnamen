@@ -62,9 +62,7 @@ function Display(objectID) {
      
       console.log("Flurname COMPONENTEN AUFRUFEN");
       console.log(props['value']);
-      //console.log("check title");
-      //console.log(props['value'].title);
-    
+      
       const res = props['value'];
       console.log(show);
       return (

@@ -229,7 +229,7 @@ const ResultsList=(props)=>{
   }
 
   var detailsPage = "/details:"+objectID;
-  //console.log(detailsDisplay);
+  
 
   return (
   <tr>
