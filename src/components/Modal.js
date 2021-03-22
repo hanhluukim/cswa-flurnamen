@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import Button from 'react-bootstrap/Button';
 import {MDBBtn} from 'mdbreact';
 import { MDBContainer, MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody } from "mdbreact";
+import Spinner from 'react-bootstrap/Spinner';
 
 import GetService from '../components/apis/get.service';
 
@@ -16,7 +17,7 @@ function Display(objectID) {
     //var title="tessssssssssss";
 
     const [show, setShow] = useState(false); //first state fur variable show
-    //const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [details, setDetails] = useState([]);
     
     console.log("first"+show);
@@ -26,6 +27,7 @@ function Display(objectID) {
     const handleClose = () => {
       console.log("handleClose")
       setShow(false);
+      
       console.log(show)
     };
     //GET DETAILS RESPONSE
@@ -34,6 +36,9 @@ function Display(objectID) {
 
     const handleClick = () => {
       console.log(objectID);
+
+      setLoading(true);
+      
       console.log("get Click");
       var detailsL=[]
       console.log(show);
@@ -47,47 +52,10 @@ function Display(objectID) {
         console.log("in function");
         console.log(detailsL);
         console.log(details);
+        setLoading(false);
       });
-      //getRes;
-      /*
-      var t = getRes().then((Res)=>{
-        console.log("test");
-        console.log(Res);
-        detailsL = Res;
-        console.log(detailsL);
-        return detailsL
-      });
-      console.log("return");
-      console.log(t);
-      */
-      console.log("details from getRes");
-      console.log(detailsL);
-      //setDetails(detailsL);
+      
       setShow(true);
-      //console.log(details);
-      
-      /*.then((detailsL)=>{
-        //console.log("TESTENTESTEN");setShow(true);
-        //console.log(detailsL);
-        setDetails(detailsL);
-        
-        //console.log(details);
-        //console.log("=====");
-        setShow(true);
-        console.log(show);
-      
-      console.log("state details");
-      console.log(details);
-      console.log("test show modal");
-      console.log(show);
-      });
-      */
-      console.log("state details");
-      console.log(details);
-      console.log("test show modal");
-      console.log(show);
-      n = n+1;
-      console.log(n);
     };
     
     const Flurname=(props)=>{
@@ -131,24 +99,26 @@ function Display(objectID) {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-
-                <MDBTable id="detail-results" className="table-detail-result">
-                  <MDBTableHead>
-                    <tr>
-                      <th>Flurname</th>
-                      <th>Area</th>
-                      <th>Beleg</th>
-                      <th>Note</th>
-                      <th>Obergeordnete</th>
-                    </tr>
-                  </MDBTableHead>
-                  <MDBTableBody>
-                      {details.map((item, index)=><Flurname key={index} value={item}/>)}
-                      {/*aRow*/}
-                      
-                  </MDBTableBody>
-                  </MDBTable>
-
+          {loading ? (
+            <Spinner animation="border" variant="success" />
+          ):(
+            <MDBTable id="detail-results" className="table-detail-result">
+            <MDBTableHead>
+              <tr>
+                <th>Flurname</th>
+                <th>Area</th>
+                <th>Beleg</th>
+                <th>Note</th>
+                <th>Obergeordnete</th>
+              </tr>
+            </MDBTableHead>
+            <MDBTableBody>
+                {details.map((item, index)=><Flurname key={index} value={item}/>)}
+                {/*aRow*/}
+                
+            </MDBTableBody>
+            </MDBTable>
+          )}
           </Modal.Body>
           <Modal.Footer>
             <Button id="btn-details-close" variant="dark" class="btn btn-dark" onClick={handleClose}>

@@ -16,7 +16,7 @@ import Flurnamen from "./components/Flurnamen";
 import Erfassung from "./components/Erfassung";
 import Profile from "./components/Profile";
 import Search from "./components/Search";
-import DisplayPage from "./components/DisplayPage";
+//import DisplayPage from "./components/DisplayPage";
 
 
 import { logout } from "./actions/auth";
@@ -148,7 +148,7 @@ const App = () => {
             <Route exact path="/anmeldung" component={Login} />
             <Route exact path="/registerierung" component={Register} />
             <Route exact path="/profile" component={Profile} />
-            <Route exact path={"/details:objectID"} component={DisplayPage} />
+            
           </Switch>
         </div>
       </div>

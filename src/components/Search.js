@@ -8,8 +8,7 @@ import { MDBCol, MDBBtn, MDBIcon} from "mdbreact";
 import GetService from '../components/apis/get.service';
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import Display from './Modal';
-import OtherDisplay from './ClassModal';
-import SearchResult from './SearchResult';
+
 
 var foundObjects=[]
 
