@@ -44,10 +44,10 @@ describe('Story 4: Searchpage', () => {
 
             //cy.get('#table-results').find('tr').should('have.length', nr+1)
             if(nr){
-                cy.get('#table-results').find('tr').eq(nr).find('td').eq(4).find('button').click()
+                cy.get('#table-results').find('tr').eq(nr).find('td').eq(nr).find('button').click()
                 //get('button[class="btn btn-success"]').click()
                 //c.get('button[class="btn btn-success"]').click()
-                cy.wait(5000)
+                cy.wait(10000)
                 //cy.get('#btn-details-close').click()
             }
             

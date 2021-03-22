@@ -1,13 +1,15 @@
 import { render } from 'react-dom';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import axios from 'axios';
-
+import {Link} from 'react-router-dom';
 
 
 import { MDBCol, MDBBtn, MDBIcon} from "mdbreact";
 import GetService from '../components/apis/get.service';
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import Display from './Modal';
+import OtherDisplay from './ClassModal';
+import SearchResult from './SearchResult';
 
 var foundObjects=[]
 
@@ -120,6 +122,8 @@ class Search extends Component {
     const title = this.state.query;
     console.log(title);
     GetService.searchInfoQuery(title).then((result)=>{
+      console.log("query");
+      console.log(this);
       console.log(result);
       this.setState({
         resultsForQuery:result,
@@ -185,7 +189,7 @@ class Search extends Component {
         </MDBCol>
         
         {/*{suggestResults}*/}
-        <div id="list-suggests">
+        <div className="card" style={{margin:'auto', textAlign:'justify'}} id="list-suggests">
         {this.state.filterBestand.slice(0,5).map((item, index) => <SuggestList key={index} {...item} />)}
         </div>
         
@@ -203,6 +207,7 @@ class Search extends Component {
           </MDBTableHead>
           <MDBTableBody>
               {this.state.resultsForQuery.map((item, index) => <ResultsList key={index} {...item} />)}
+              {/*{this.state.resultsForQuery.map((item, index) => <SearchResult key={index} item={item} />)*/}
           </MDBTableBody>
 
         </MDBTable> 
@@ -211,9 +216,10 @@ class Search extends Component {
   }  
 }
 
+
 const ResultsList=(props)=>{
-  console.log(props);
-  console.log(props.place);
+  //console.log(props);
+  
   const objectID=props.id;
   const title = props.title;
 
@@ -223,13 +229,24 @@ const ResultsList=(props)=>{
     len = childs.length
   }
 
+  var detailsPage = "/details:"+objectID;
+  //console.log(detailsDisplay);
+
   return (
   <tr>
     <td>{props['title']}</td>
     <td>{props['place']}</td>
     <td>{props['facetObjectType']}</td>
-    <td>{len}</td>
-    <td name="details"><Display name="modalOpen" value={objectID}/></td>
+    <td>{props['len']}</td>
+    <td>
+    <Display name="modalOpen" value={[title,objectID]}/>
+    {/*
+        <Link
+        class="btn btn-success"
+        to={detailsPage}
+        >Anzeige</Link>
+    */}
+    </td> 
   </tr> 
   );
 };
@@ -243,3 +260,11 @@ const SuggestList=(props)=>(
 
 
 export default Search;
+
+//
+//<td name="details">
+//<Display name="modalOpen" value={[title,objectID]}/>
+//<Display 
+//  objectTitle={props['title']} 
+//  objectID={props.id}/>
+//</td>

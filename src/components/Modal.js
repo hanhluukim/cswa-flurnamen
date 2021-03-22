@@ -17,27 +17,100 @@ function Display(objectID) {
 
     const [show, setShow] = useState(false); //first state fur variable show
     //const [loading, setLoading] = useState(false);
-    const [details, setDetails] = useState([{}]);
+    const [details, setDetails] = useState([]);
+    
+    console.log("first"+show);
 
-    const handleClose = () => setShow(false);
-   
+
+    let n = 0;
+    const handleClose = () => {
+      console.log("handleClose")
+      setShow(false);
+      console.log(show)
+    };
+    //GET DETAILS RESPONSE
+    
+
+
     const handleClick = () => {
-      
-      GetService.getInfoDetails(objectID.value).then((detailsL)=>{
-        console.log("TESTENTESTEN");
+      console.log(objectID);
+      console.log("get Click");
+      var detailsL=[]
+      console.log(show);
+      var rep = GetService.getInfoDetails(objectID.value[1]);
+      console.log("content aus SERVICE will be here transported");
+      console.log(rep);
+      const getRes = rep.then((res)=>{
+        var a = res;
+        setDetails(a[0]);
+        detailsL= a;
+        console.log("in function");
         console.log(detailsL);
+        console.log(details);
+      });
+      //getRes;
+      /*
+      var t = getRes().then((Res)=>{
+        console.log("test");
+        console.log(Res);
+        detailsL = Res;
+        console.log(detailsL);
+        return detailsL
+      });
+      console.log("return");
+      console.log(t);
+      */
+      console.log("details from getRes");
+      console.log(detailsL);
+      //setDetails(detailsL);
+      setShow(true);
+      //console.log(details);
+      
+      /*.then((detailsL)=>{
+        //console.log("TESTENTESTEN");setShow(true);
+        //console.log(detailsL);
         setDetails(detailsL);
         
-        console.log(details);
-        console.log("=====");
-      });
-      setShow(true)
+        //console.log(details);
+        //console.log("=====");
+        setShow(true);
+        console.log(show);
       
-    }
-    console.log("state details");
-    console.log(details);
-    console.log("test show modal");
-    console.log(show);
+      console.log("state details");
+      console.log(details);
+      console.log("test show modal");
+      console.log(show);
+      });
+      */
+      console.log("state details");
+      console.log(details);
+      console.log("test show modal");
+      console.log(show);
+      n = n+1;
+      console.log(n);
+    };
+    
+    const Flurname=(props)=>{
+     
+      console.log("Flurname COMPONENTEN AUFRUFEN");
+      console.log(props['value']);
+      //console.log("check title");
+      //console.log(props['value'].title);
+    
+      const res = props['value'];
+      console.log(show);
+      return (
+      <tr>
+        <td>{res['title']}</td>
+        <td>{res['area']}</td>
+        <td>{res['evidence']}</td>
+        <td>{res['note']}</td>
+        <td>{res['parent']}</td>
+      </tr> 
+      );
+
+    };
+
     return (
       <>
         
@@ -54,7 +127,7 @@ function Display(objectID) {
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-modal-sizes-title-lg">
-              Detailsanzeige
+              {objectID.value[0]}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -72,7 +145,7 @@ function Display(objectID) {
                   <MDBTableBody>
                       {details.map((item, index)=><Flurname key={index} value={item}/>)}
                       {/*aRow*/}
-                     
+                      
                   </MDBTableBody>
                   </MDBTable>
 
@@ -87,23 +160,6 @@ function Display(objectID) {
     );
   }
 
-const Flurname=(props)=>{
-  console.log("Flurname");
-  console.log(props['value']);
-  console.log("check title");
-  console.log(props['value'].title);
-
-  const res = props['value'];
-  return (
-  <tr>
-    <td>{res['title']}</td>
-    <td>{res['area']}</td>
-    <td>{res['evidence']}</td>
-    <td>{res['note']}</td>
-    <td>{res['parent']}</td>
-  </tr> 
-  );
-};
 
 export default Display;
 
