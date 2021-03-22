@@ -114,7 +114,6 @@ function Display(objectID) {
             </MDBTableHead>
             <MDBTableBody>
                 {details.map((item, index)=><Flurname key={index} value={item}/>)}
-                {/*aRow*/}
                 
             </MDBTableBody>
             </MDBTable>
