@@ -1,35 +1,24 @@
 import { render } from 'react-dom';
-import React, { Component, useState } from 'react';
+import React, { Component} from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+//import {Link} from 'react-router-dom';
+//import DropdownButton from 'react-bootstrap/DropdownButton';
+//import Dropdown from 'react-bootstrap/Dropdown';
+//import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
-
-import { MDBCol, MDBBtn, MDBIcon} from "mdbreact";
+import { MDBCol, MDBBtn, MDBIcon, MDBRow} from "mdbreact";
 import GetService from '../components/apis/get.service';
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import Display from './Modal';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Lightbox from 'react-image-lightbox';
+import "react-image-lightbox/style.css";
+import { useState } from 'react';
 
 
 var foundObjects=[]
 
-//aufgrund Server
-var fakeResp=[
-  {
-    id:"",
-    title:"Berka",
-    link:""
-  },
-  {
-    id:"",
-    title:"Berka/Weimar",
-    link:""
-  },
-  {
-    id:"",
-    title:"Bäckereiberg",
-    link:""
-  }
-]
 
 var requestGetIDs = {
     method: 'get',
@@ -58,6 +47,8 @@ class Search extends Component {
         //parameters for search of query
         isLoadedForQuery: false,
         resultsForQuery: [],
+        filterSelect: "0",
+        //isOpenImage:false
         //modal
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -103,64 +94,114 @@ class Search extends Component {
 
 
   handleInputChange = () => {
-    
+      if(this.search.value!==''){
       this.setState({
       query: this.search.value,
       //based on query will rall results be filtered
       //suggestion durch der Title die Buchstaben aus dem Eingabe erhält
       filterBestand:this.state.results.filter((bestand)=>bestand['title'].toLowerCase().includes(this.state.query.toLowerCase()))
       })
+    }
+    else{
+      this.setState({
+        isLoadedForQuery:false
+      })
+    }
 
   }
 
+  handelSelect = (e) =>{
+    console.log("event" + e.target.value);
+    this.setState({
+      filterSelect: e.target.value
+    });
+    //console.log("choose" + this.state.filterSelect);
+  }
   /*
   Daten für eingebene Anfrage aufrufen
   Response wird in dem State resultForQuery gespeichert
   */
   getResultsForQuery =(event) =>{
     const title = this.state.query;
+    const filter = this.state.filterSelect;
     console.log(title);
-    GetService.searchInfoQuery(title).then((result)=>{
+    GetService.searchInfoQuery(title, filter).then((result)=>{
       console.log("query");
       console.log(this);
       console.log(result);
       this.setState({
         resultsForQuery:result,
-        isLoadedForQuery:true
+        isLoadedForQuery:true,
+      
       });
+      //this.search.value="";
 
     });
     console.log("results for query loaded");
+    
   }
 
   render() {
     //adding number of results
     var isFound = this.state.filterBestand.length;
-    var all = this.state.all;
+    
     var isLoaded = this.state.isLoadedForQuery;
 
     let suggestResults;
     let showResults;
+    let filterSearch;
+    
+    
+   if(isFound && isLoaded==false){
 
-    if(isFound>1){
-      suggestResults=<h6>Beispiele {all} Objekten </h6>
-
-    }
-    else{
-      suggestResults=<h6>Beispiel von {all} Objekten</h6>
-    }
-
+     suggestResults=<div className="card" style={{margin:'auto', textAlign:'justify'}} id="list-suggests">
+     {this.state.filterBestand.slice(0,5).map((item, index) => <SuggestList key={index} {...item} />)}
+     </div>
+   }
     var isFoundForQuery = this.state.resultsForQuery.length;
-    if(isLoaded==false){
-    }
-    else{
-        if(isFoundForQuery!==0){
+    if(isLoaded==true){
+      if(isFoundForQuery!==0){
         showResults=<h3 id="id-number-results" class="text-success"><span>{isFoundForQuery}</span> Ergebnis gefunden</h3>
       }
       else{
         showResults=<h3 id="id-number-results" style={{textAlign:'justify'}}class="text-danger"><span>0</span> Ergebnis gefunden!</h3>
       }
     }
+
+    filterSearch=<Form center>
+    {['checkbox'].map((type) => (
+      <div key={`default-${type}`} className="mb-3">
+        <Form.Row center style={{marginLeft:'auto', marginRight:'auto'}}>
+        <Form.Group as={Col} md="4">
+          <Form.Check
+            defaultChecked={true}
+            type={type}
+            id={`default-${type}`}
+            label={'Flurname'}
+          />
+        </Form.Group>
+        <Form.Group as={Col} md="4">
+          <Form.Check
+            //disabled
+            defaultChecked={true}
+            type={type}
+            label={'Gemarkung'}
+            id={`disabled-default-${type}`}
+          />
+        </Form.Group>
+        <Form.Group as={Col} md="4">
+          <Form.Check
+            //disabled
+            type={type}
+            label={'Ort'}
+            id={`disabled-default-${type}`}
+          />
+        </Form.Group>
+        </Form.Row>
+      </div>
+    ))}
+</Form>
+
 
     //render HTML
     return (
@@ -169,8 +210,17 @@ class Search extends Component {
         <MDBCol>
             <div className="input-group md-form form-sm form-1 pl-0">
                 <div className="input-group-prepend">
+
                 <span className="input-group-text green lighten-3" id="basic-text1">
                     <MDBIcon className="text-white" icon="search" />
+                </span>
+                <span className="input-group-text green lighten-3">
+                  <select className="browser-default custom-select" onChange={this.handelSelect}>
+                    <option select='selected' value="0">optionale Suche</option>
+                    <option value="1">Flurkarte</option>
+                    <option value="2">Gemarkung</option>
+                    <option value="3">Ort</option>
+                  </select>
                 </span>
                 </div>
                   
@@ -180,18 +230,18 @@ class Search extends Component {
                         onChange={this.handleInputChange}
                         //onKeyPress={event=>event.key=="Enter" &&this.getResultsForQuery}
                         type="text" 
-                        placeholder="Flurname eingeben und Button drücken" 
+                        placeholder="Suchbegriff eingeben und Button drücken" 
                         aria-label="Search" />
                     <MDBBtn id="id-btn-search" color="green" onClick={this.getResultsForQuery}>Suchen</MDBBtn>
                  
-            </div>
+              </div>
         </MDBCol>
+
+        {/*filterSearch*/}
+        {/*Suggessions*/}        
+        {suggestResults}
         
-        {/*{suggestResults}*/}
-        <div className="card" style={{margin:'auto', textAlign:'justify'}} id="list-suggests">
-        {this.state.filterBestand.slice(0,5).map((item, index) => <SuggestList key={index} {...item} />)}
-        </div>
-        
+
         {showResults}
         
         <MDBTable id="table-results" className="table-result">
@@ -201,7 +251,10 @@ class Search extends Component {
               <th>GND</th>
               <th>Typ</th>
               <th>Untergeordnete</th>
+              
               <th>Details</th> 
+              <th>Beispiel</th>
+              <th>Kollektion</th>
             </tr>
           </MDBTableHead>
           <MDBTableBody>
@@ -218,18 +271,27 @@ class Search extends Component {
 
 const ResultsList=(props)=>{
   //console.log(props);
+
+  const [isOpen, setImage] = useState(false);
   
   const objectID=props.id;
   const title = props.title;
 
-  let childs = props.link;
-  let len = 0
-  if (childs!=undefined){
-    len = childs.length
+
+  console.log("result properties");
+  console.log(props);
+
+  //let childs = props.link;
+  let isLink = null;
+  if (props.img===""){
+    isLink=false;
+  }
+  else{
+    isLink=true;
   }
 
-  var detailsPage = "/details:"+objectID;
-  
+  //var detailsPage = "/details:"+objectID;
+  //img[0].$["xlink:href"]
 
   return (
   <tr>
@@ -237,6 +299,7 @@ const ResultsList=(props)=>{
     <td>{props['place']}</td>
     <td>{props['facetObjectType']}</td>
     <td>{props['len']}</td>
+    
     <td>
     <Display name="modalOpen" value={[title,objectID]}/>
     {/*
@@ -246,6 +309,34 @@ const ResultsList=(props)=>{
         >Anzeige</Link>
     */}
     </td> 
+    <td>
+      {isLink ? (
+      <div>
+        <img className="photo" src={props['img']} onClick={() => setImage(true)}/>
+        
+        {isOpen && (
+        <Lightbox
+            mainSrc={props['img']}
+            onCloseRequest={() => setImage(false)}
+          />
+        )}
+      </div>
+      )
+      :(<p></p>)
+      }
+    </td>
+    <td>
+      {isLink ? (
+      <div>
+       
+        <a style={{margin:'auto', textAlign:'justify'}} href={props['collection']}><MDBIcon icon="eye"/></a>
+        
+      </div>
+      )
+      :(<p></p>)
+      }
+    </td>
+
   </tr> 
   );
 };

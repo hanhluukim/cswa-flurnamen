@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Router, Switch, Route, Link } from "react-router-dom";
+import { Router, Switch, Route} from "react-router-dom";
 
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
-  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact";
+import { MDBNavbar, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
+  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem} from "mdbreact";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -91,8 +91,12 @@ const App = () => {
                   <div className="d-none d-md-inline">Projekt</div>
                 </MDBDropdownToggle>
                 <MDBDropdownMenu className="dropdown-default">
-                  <MDBDropdownItem href="/projekt">Details</MDBDropdownItem>
-                  <MDBDropdownItem href="/gallerie">Gallerie</MDBDropdownItem>
+                  <MDBDropdownItem>
+                    <MDBNavLink style={{color:'black'}}to="/projekt">Details</MDBNavLink>
+                  </MDBDropdownItem>
+                  <MDBDropdownItem>
+                  <MDBNavLink style={{color:'black'}}to="/gallerie">Gallerie</MDBNavLink>
+                  </MDBDropdownItem>
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>

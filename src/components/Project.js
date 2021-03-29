@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "react-dom";
+//import { render } from "react-dom";
 import Accordion from "./Accordion";
 import Table from 'react-bootstrap/Table'
 

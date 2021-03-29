@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { MDBInputGroup, MDBInput } from "mdbreact";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import {MDBRow, MDBCol} from "mdbreact";
 
 
 export default class Erfassung extends React.Component {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React from "react";
 
 import { MDBCard, MDBCardTitle, MDBBtn, MDBRow, MDBCol, MDBIcon, MDBContainer } from 'mdbreact';
 import {Link} from 'react-router-dom';
@@ -8,7 +8,7 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
 
-import UserService from "../services/user.service";
+//import UserService from "../services/user.service";
 
 const Home = () => {
   return (
