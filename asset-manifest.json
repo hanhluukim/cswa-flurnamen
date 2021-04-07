@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/cswa-flurnamen/static/css/main.60328ebf.chunk.css",
-    "main.js": "/cswa-flurnamen/static/js/main.0c17810e.chunk.js",
-    "main.js.map": "/cswa-flurnamen/static/js/main.0c17810e.chunk.js.map",
+    "main.js": "/cswa-flurnamen/static/js/main.73c03d1f.chunk.js",
+    "main.js.map": "/cswa-flurnamen/static/js/main.73c03d1f.chunk.js.map",
     "runtime-main.js": "/cswa-flurnamen/static/js/runtime-main.9ab0e237.js",
     "runtime-main.js.map": "/cswa-flurnamen/static/js/runtime-main.9ab0e237.js.map",
     "static/css/2.dd658aaf.chunk.css": "/cswa-flurnamen/static/css/2.dd658aaf.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.dd658aaf.chunk.css",
     "static/js/2.1d87671c.chunk.js",
     "static/css/main.60328ebf.chunk.css",
-    "static/js/main.0c17810e.chunk.js"
+    "static/js/main.73c03d1f.chunk.js"
   ]
 }
